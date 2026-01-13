@@ -1,0 +1,61 @@
+# 应用核心配置
+spring:
+  # 应用名称
+  application:
+    name: study-db
+  # 数据源配置（参考示例调整库名+补充文件上传配置）
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL驱动类（8.x版本）
+    url: jdbc:mysql://localhost:3306/personal_study  # 参考示例修改数据库名为big_event
+    username: root  # 数据库用户名
+    password: 123456  # 数据库密码
+  # Redis配置（保留原有缓存功能）
+  data:
+    redis:
+      host: localhost  # Redis服务器地址
+      port: 6379       # Redis端口号
+
+# 服务器配置（参考示例调整端口+保留上下文路径）
+server:
+  port: 8088  # 参考示例修改端口为8088
+
+
+
+# MyBatis-Plus配置（保留原有核心功能，兼容MyBatis基础配置）
+mybatis-plus:
+  # 实体类包名
+  type-aliases-package: org.example.studydb.model.entity
+  # XML映射文件位置（参考示例调整路径为mapper/*.xml）
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    # 日志打印SQL（开发环境开启）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 下划线转驼峰（参考示例保留并强化注释）
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      # 逻辑删除字段名
+      logic-delete-field: isDeleted
+      # 逻辑删除-未删除值
+      logic-not-delete-value: 0
+      # 逻辑删除-已删除值
+      logic-delete-value: 1
+
+# Knife4j接口文档配置（保留原有接口文档功能）
+knife4j:
+  enable: true
+  openapi:
+    title: 学习管理系统API文档
+    description: 包含用户、笔记、收藏、待办、统计模块的接口
+    version: 1.0.0
+    contact:
+      name: 开发人员
+      email: dev@example.com
+
+# 自定义JWT配置（保留原有token功能）
+custom:
+  jwt:
+    # JWT密钥（建议生产环境使用复杂随机字符串，至少32位）
+    secret: study-db-jwt-secret-key-20260113-xxxxxx
+    # JWT过期时间（毫秒，2小时=7200000毫秒）
+    expire: 7200000
